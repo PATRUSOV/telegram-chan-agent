@@ -11,6 +11,7 @@ venv/
 env/
 .venv/
 .env/
+.env
 
 # Byte-compiled / optimized / DLL files
 *.pyc
@@ -58,3 +59,14 @@ pipenv.lock
 
 # pyenv
 .python-version
+
+# .env
+*.env
+.env
+**/.env
+
+# session files
+*.session
+*.session-journal
+**/*.session
+**/*.session-journal

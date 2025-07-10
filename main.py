@@ -1,4 +1,4 @@
-from src.ai.mistral import MistralClient, ChatSession
+from src.llm.mistral import MistralClient, ChatSession
 from dotenv import load_dotenv
 import os
 

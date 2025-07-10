@@ -1,4 +1,4 @@
-from src.ai.base import BaseLLM
+from src.llm.base import BaseLLM
 from src.client.base import BaseClient
 from typing import Dict
 

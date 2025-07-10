@@ -10,5 +10,3 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
-
-log = logging.getLogger()

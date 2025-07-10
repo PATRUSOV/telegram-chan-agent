@@ -3,6 +3,9 @@ import json
 import dotenv
 from typing import List, Dict, Optional
 from mistralai import Mistral
+from typing import override
+
+from src.llm.base import BaseLLM
 
 dotenv.load_dotenv()
 
