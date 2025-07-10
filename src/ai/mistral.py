@@ -5,13 +5,13 @@ import logging
 from mistralai import Mistral
 from typing import override
 
-from src.ai.base import BaseAI
+from src.ai.base import BaseLLM
 
 dotenv.load_dotenv()
 logger = logging.getLogger(__name__)
 
 
-class MistralAI(BaseAI):
+class MistralLLM(BaseLLM):
     def __init__(self):
         self._API = os.environ.get("MISTRAL_API_KEY")
         if self._API is None:
