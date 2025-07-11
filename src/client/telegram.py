@@ -11,6 +11,9 @@ from telethon.tl.types import User
 from telethon import functions
 import logging
 from datetime import datetime
+from typing import List, Dict, Optional
+from telethon.tl.types import User
+
 
 log = logging.getLogger(__name__)
 
@@ -113,17 +116,38 @@ class TelegramClient(BaseClient):
             return False
 
         
-    async def get_unread_user(self) -> List[int]:
+    
+    async def get_unread_user(self) -> List[Dict[str, Optional[str | int]]]:
+        """
+        Вернуть список пользователей, у которых есть непрочитанные входящие
+        сообщения, в формате:
+            [
+                {"id": 123456789,
+                "username": "@nickname" | None,
+                "name": "Имя Фамилия" | None},
+                ...
+            ]
+        """
         try:
             dialogs = await self.client.get_dialogs()
-            return [
-                dialog.entity.id
-                for dialog in dialogs
-                if isinstance(dialog.entity, User) and dialog.unread_count > 0
-            ]
+            unread_users: List[Dict[str, Optional[str | int]]] = []
+
+            for dialog in dialogs:
+                if isinstance(dialog.entity, User) and dialog.unread_count > 0:
+                    user: User = dialog.entity
+                    user_dict = {
+                        "id": user.id,
+                        "username": f"@{user.username}" if user.username else None,
+                        "name": " ".join(filter(None, [user.first_name, user.last_name])) or None,
+                    }
+                    unread_users.append(user_dict)
+
+            return unread_users
+
         except Exception as e:
-            log.error(f"Ошибка при получении ID пользователей с непрочитанными сообщениями: {e}")
+            log.error("Ошибка при получении пользователей с непрочитанными сообщениями: %s", e)
             return []
+
 
     async def authorization(self) -> bool:
         if self.client is None:

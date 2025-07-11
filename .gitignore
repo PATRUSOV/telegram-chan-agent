@@ -13,6 +13,8 @@ env/
 .env/
 .env
 
+
+
 # Byte-compiled / optimized / DLL files
 *.pyc
 *.pyo
@@ -70,3 +72,7 @@ pipenv.lock
 *.session-journal
 **/*.session
 **/*.session-journal
+
+# Images
+*.png
+**/*.png

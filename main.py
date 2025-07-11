@@ -15,6 +15,8 @@ while True:
 import asyncio
 from src.client import TelegramClient  # Убедись, что TelegramClient импортируется правильно
 import logging
+import os
+import sys
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -48,4 +50,18 @@ async def main():
         ...
         # await client.deauthorization()
 
-asyncio.run(main())
+if __name__ == "__main__":
+    
+    if not os.path.exists('.env'):
+        log.fatal("File '.env' is not exists")
+        log.info("File '.env' will be created. Please fill it out according to the form inside it.")
+        with open('.env', 'w') as env:
+            env.writelines(
+"""API_ID=<YOUR TELEGRAM API ID>
+API_HASH=<YOUR TELEGRAM API HASH>
+PHONE_NUMBER=<YOUR TELEGRAM ACCOUNT PHONE NUMBER>
+MISTRAL_API_KEY=<YOUR MISTRAL API KEY>"""
+        )
+        sys.exit()
+
+    asyncio.run(main())
